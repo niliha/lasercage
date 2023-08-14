@@ -1,8 +1,10 @@
 #include <Arduino.h>
 #include <nvs_flash.h>
 
+
 #include "network/Network.hpp"
 #include "network/WifiCredentials.hpp"
+#include "LaserCage.hpp"
 
 extern "C" void app_main() {
     // initialize arduino library before we start the tasks
@@ -17,6 +19,12 @@ extern "C" void app_main() {
         ESP.restart();
     }
     // Network::initWifiAccessPoint(WifiCredentials::ssid, WifiCredentials::password);
+
+    MD_MAX72XX max7219(MD_MAX72XX::FC16_HW,5);
+    LaserCage laserCage(max7219, 50);
+
+    laserCage.testLasers();
+    laserCage.start();
 
     while (true) {
         // Stay in setup() such that stack frame is not popped
