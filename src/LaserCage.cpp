@@ -49,6 +49,7 @@ void LaserCage::max7219Task() {
 
 void LaserCage::artnetTask() {
     Serial.printf("artnetTask: started on core %d\n", xPortGetCoreID());
+    artnetHandler_.begin();
 
     while (true) {
         artnetHandler_.read();

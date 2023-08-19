@@ -5,15 +5,14 @@
 #include <variant>
 #include <vector>
 
-#include "artnet/ArtnetSerial.hpp"
 #include "artnet/BlockingRingBuffer.hpp"
 #include "artnet/PixelOutputConfig.hpp"
 #include "common/PixelFrame.hpp"
 
 class ArtnetHandler {
  public:
-    ArtnetHandler(BlockingRingBuffer<std::variant<PixelFrame, PixelOutputConfig>> &frameQueue, int pixelCount,
-                  int baudrate = 3000000);
+    ArtnetHandler(BlockingRingBuffer<std::variant<PixelFrame, PixelOutputConfig>> &frameQueue, int pixelCount);
+    void begin();
     void read();
 
  private:
@@ -26,7 +25,6 @@ class ArtnetHandler {
 
     BlockingRingBuffer<std::variant<PixelFrame, PixelOutputConfig>> &artnetQueue_;
     ArtnetWifi artnetWifi_;
-    ArtnetSerial artnetSerial_;
     PixelFrame artnetFrame_;
     std::set<int> receivedUniverses_;
 
