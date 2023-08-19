@@ -3,6 +3,6 @@
 #include <string>
 
 namespace WifiCredentials {
-static const std::string ssid = "artnet";
-static const std::string password = "espresso";
+static const std::string ssid = "ravelights";
+static const std::string password = "keinraveistillegal";
 }  // namespace WifiCredentials

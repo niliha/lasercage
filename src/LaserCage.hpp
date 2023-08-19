@@ -10,12 +10,11 @@
 
 class LaserCage {
  public:
-    LaserCage(MD_MAX72XX max72Xx, uint32_t laserCountFallback, int frameQueueCapacity = 3);
+    LaserCage(MD_MAX72XX max72Xx, uint32_t laserCount, int frameQueueCapacity = 3);
     void testLasers();
     void start();
 
  private:
-    const int laserCount_;
     BlockingRingBuffer<std::variant<PixelFrame, PixelOutputConfig>> artnetQueue_;
     ArtnetHandler artnetHandler_;
     Max7219Handler max7219Handler_;

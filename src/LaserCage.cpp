@@ -1,10 +1,8 @@
 #include "LaserCage.hpp"
-#include "config/OutputConfgurator.hpp"
 
-LaserCage::LaserCage(MD_MAX72XX max72Xx, uint32_t laserCountFallback, int artnetQueueCapacity)
-    : laserCount_(OutputConfigurator::load(PixelOutputConfig{laserCountFallback})[0]),
-      artnetQueue_(artnetQueueCapacity), artnetHandler_(artnetQueue_, laserCount_),
-      max7219Handler_(max72Xx, laserCount_), lastFrameMillis_(millis()) {
+LaserCage::LaserCage(MD_MAX72XX max72Xx, uint32_t laserCount, int artnetQueueCapacity)
+    : artnetQueue_(artnetQueueCapacity), artnetHandler_(artnetQueue_, laserCount), max7219Handler_(max72Xx, laserCount),
+      lastFrameMillis_(millis()) {
     // The Artnet task on core 0 does not yield to reduce latency.
     // Therefore, the watchdog on core 0 is not reset anymore, since the idle task is not resumed.
     // It is disabled to avoid watchdog timeouts resulting in a reboot.
@@ -42,7 +40,7 @@ void LaserCage::max7219Task() {
                     Serial.printf("%lu ms since last frame\n", millis() - lastFrameMillis_);
                     lastFrameMillis_ = millis();
                 } else if constexpr (std::is_same_v<T, PixelOutputConfig>) {
-                    OutputConfigurator::apply(arg);
+                    // Don't handle output configuration yet
                 }
             },
             pixelVariant);
