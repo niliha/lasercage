@@ -1,6 +1,6 @@
 #include "LaserCage.hpp"
 
-LaserCage::LaserCage(MD_MAX72XX max72Xx, uint32_t laserCount, int artnetQueueCapacity)
+LaserCage::LaserCage(LedControl max72Xx, uint32_t laserCount, int artnetQueueCapacity)
     : artnetQueue_(artnetQueueCapacity), artnetHandler_(artnetQueue_, laserCount), max7219Handler_(max72Xx, laserCount),
       lastFrameMillis_(millis()) {
     // The Artnet task on core 0 does not yield to reduce latency.

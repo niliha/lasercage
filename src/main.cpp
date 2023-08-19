@@ -17,9 +17,13 @@ extern "C" void app_main() {
     Network::initWifiAccessPoint(WifiCredentials::ssid, WifiCredentials::password);
 
 
-    Serial.printf("Constructing LaserCage...\n");
-    MD_MAX72XX max7219(MD_MAX72XX::FC16_HW,7,6,5,1);
-    LaserCage laserCage(max7219, 50);
+    const int MOSI_PIN = 23;
+    const int MISO_PIN=19;
+    const int SCLK_PIN = 18;
+    const int CS_PIN = 5;
+
+    LedControl ledControl(MOSI_PIN,SCLK_PIN,CS_PIN);
+    LaserCage laserCage(ledControl, 48);
 
     while (true) {
         laserCage.testLasers();
