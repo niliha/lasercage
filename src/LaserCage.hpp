@@ -1,7 +1,5 @@
 #pragma once
 
-#include <MD_MAX72xx.h>
-
 #include "artnet/ArtnetHandler.hpp"
 #include "artnet/BlockingRingBuffer.hpp"
 #include "max7219/Max7219Handler.hpp"
@@ -10,7 +8,7 @@
 
 class LaserCage {
  public:
-    LaserCage(MD_MAX72XX max72Xx, uint32_t laserCount, int frameQueueCapacity = 3);
+    LaserCage(LedControl max72Xx, uint32_t laserCount, int frameQueueCapacity = 3);
     void testLasers();
     void start();
 
