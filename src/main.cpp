@@ -11,11 +11,11 @@ extern "C" void app_main() {
     Serial.begin(115200);
 
 
-    //if (!Network::connectToWifi(WifiCredentials::ssid, WifiCredentials::password)) {
+    if (!Network::connectToWifi(WifiCredentials::ssid, WifiCredentials::password)) {
         //ESP.restart();
-    //}
+    }
 
-    Network::initWifiAccessPoint(WifiCredentials::ssid, WifiCredentials::password);
+    // Network::initWifiAccessPoint(WifiCredentials::ssid, WifiCredentials::password);
 
 
     const int DATA_PIN=7;
@@ -23,7 +23,7 @@ extern "C" void app_main() {
     const int CS_PIN = 5;
 
     LedControl ledControl(DATA_PIN,SCLK_PIN,CS_PIN);
-    LaserCage laserCage(ledControl, 48);
+    LaserCage laserCage(ledControl, 45);
 
     laserCage.testLasers();
 
